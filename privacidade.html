@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de privacidade | Nicola Caraffa</title>
+  <link rel="icon" type="image/png" href="icone.png">
+  <link rel="apple-touch-icon" href="icone.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=7">
+  <style>.texto { max-width: 760px; padding-block: 3rem 5rem; } .texto h2 { font-size: 1.3rem; margin-top: 2rem; } .texto p, .texto li { color: var(--cinza); }</style>
+</head>
+<body>
+  <main class="container texto">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Nicola Caraffa, Corretor de Imóveis, CRECI 16968" width="560" height="269"></a>
+    <p><a href="index.html"><i data-i="voltar"></i> Voltar ao site</a></p>
+    <h1>Política de privacidade</h1>
+    <p>Este site pertence a <strong>Nicola Caraffa</strong>, Corretor de Imóveis, <strong data-c="creci"></strong>, que é o responsável pelos dados tratados aqui (Lei 13.709/2018, LGPD).</p>
+
+    <h2>Quais dados coletamos</h2>
+    <p>O site não tem formulário nem cadastro de visitantes. Quando você clica em um botão de WhatsApp, e-mail ou telefone, a conversa acontece fora do site, e recebemos apenas o que você decidir enviar (normalmente nome, telefone e o imóvel de interesse).</p>
+
+    <h2>Para que usamos</h2>
+    <p>Somente para responder ao seu contato e atender o seu pedido sobre imóveis (art. 7º, V, da LGPD). Não vendemos nem compartilhamos seus dados para publicidade.</p>
+
+    <h2>Por quanto tempo guardamos</h2>
+    <p>Enquanto durar o atendimento e, depois, pelo tempo exigido por lei para negócios imobiliários. Você pode pedir a exclusão a qualquer momento.</p>
+
+    <h2>Cookies</h2>
+    <p>Este site não usa cookies nem ferramentas de rastreamento ou publicidade.</p>
+
+    <h2>Seus direitos</h2>
+    <p>Você pode pedir para saber quais dados temos sobre você, corrigi-los ou excluí-los (art. 18 da LGPD) pelo e-mail <a data-c-mail><span data-c="email"></span></a> ou pelo WhatsApp <span data-c="telefone"></span>.</p>
+
+    <h2>Fotos e informações dos imóveis</h2>
+    <p>Os imóveis são anunciados com autorização dos proprietários. Preços e condições podem mudar; confirme sempre pelo WhatsApp.</p>
+
+    <p><small>Atualizada em outubro de 2026.</small></p>
+  </main>
+  <script src="dados.js?v=2"></script>
+  <script src="icones.js?v=5"></script>
+  <script>
+    document.querySelectorAll("[data-c]").forEach((el) => (el.textContent = CORRETOR[el.dataset.c]));
+    document.querySelectorAll("[data-c-mail]").forEach((el) => (el.href = `mailto:${CORRETOR.email}`));
+  </script>
+</body>
+</html>

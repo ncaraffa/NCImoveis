@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel | NCImóveis</title>
+  <link rel="icon" type="image/png" href="icone.png">
+  <link rel="apple-touch-icon" href="icone.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="admin.css?v=7">
+</head>
+<body class="admin">
+
+  <!-- Aviso quando o banco ainda não foi ligado -->
+  <section id="tela-sem-banco" class="tela centro" hidden>
+    <div class="caixa">
+      <h1>Painel ainda não conectado</h1>
+      <p>Falta preencher a conexão com o Appwrite no arquivo <code>dados.js</code>.</p>
+    </div>
+  </section>
+
+  <!-- Entrar -->
+  <section id="tela-login" class="tela centro" hidden>
+    <form id="form-login" class="caixa">
+      <img class="marca" src="logo.png" alt="Nicola Caraffa, Corretor de Imóveis, CRECI 16968" width="560" height="269">
+      <h1>Olá! Entre no seu painel</h1>
+      <label>Seu e-mail
+        <input name="email" type="email" autocomplete="username" required>
+      </label>
+      <label>Sua senha
+        <input name="senha" type="password" autocomplete="current-password" required>
+      </label>
+      <button class="btn btn-forte btn-grande" type="submit">Entrar</button>
+      <button class="link" type="button" id="esqueci">Esqueci minha senha</button>
+      <p class="msg" id="msg-login" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- Nova senha (chega pelo link do e-mail) -->
+  <section id="tela-senha" class="tela centro" hidden>
+    <form id="form-senha" class="caixa">
+      <h1>Crie sua nova senha</h1>
+      <label>Nova senha (mínimo 8 letras ou números)
+        <input name="senha" type="password" minlength="8" autocomplete="new-password" required>
+      </label>
+      <button class="btn btn-forte btn-grande" type="submit">Salvar nova senha</button>
+      <p class="msg" id="msg-senha" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- Painel -->
+  <section id="tela-painel" class="tela" hidden>
+    <header class="painel-topo">
+      <div class="container painel-topo-inner">
+        <img class="marca" src="logo.png" alt="Nicola Caraffa, Corretor de Imóveis, CRECI 16968" width="560" height="269">
+        <span class="ola">Olá, Nicola</span>
+        <a class="btn btn-suave" href="index.html" target="_blank">Ver meu site</a>
+        <button class="btn btn-suave" id="sair">Sair</button>
+      </div>
+      <nav class="container abas" aria-label="Seções do painel">
+        <button class="aba ativa" data-aba="imoveis"><i data-i="casa"></i> Meus imóveis</button>
+        <button class="aba" data-aba="novo"><i data-i="mais"></i> Novo imóvel</button>
+        <button class="aba" data-aba="dinheiro"><i data-i="dinheiro"></i> Meu dinheiro</button>
+      </nav>
+    </header>
+
+    <main class="container painel-corpo">
+
+      <!-- Meus imóveis -->
+      <section data-painel="imoveis">
+        <div class="dica"><i data-i="dica"></i> Aqui estão todos os seus imóveis. Mude a situação (Disponível, Vendido...) direto na lista. Imóvel <b>vendido</b> ou <b>alugado</b> sai do site sozinho.</div>
+        <div class="barra">
+          <label class="campo-busca"><i data-i="lupa"></i><input type="search" id="filtro-imoveis" placeholder="Procurar pelo nome, bairro ou código..." aria-label="Procurar imóvel"></label>
+          <button class="btn btn-forte" data-ir="novo"><i data-i="mais"></i> Novo imóvel</button>
+        </div>
+        <div id="lista-admin" class="lista-admin"></div>
+        <p id="sem-imoveis" class="vazio" hidden>Você ainda não cadastrou nenhum imóvel. Clique em <b>Novo imóvel</b> para começar.</p>
+      </section>
+
+      <!-- Novo / editar imóvel -->
+      <section data-painel="novo" hidden>
+        <form id="form-imovel" class="form-imovel" novalidate>
+          <h2 id="titulo-form">Cadastrar novo imóvel</h2>
+          <div class="dica"><i data-i="dica"></i> Preencha o que souber. Os campos com <span class="obr">*</span> são obrigatórios. Depois é só clicar em <b>Salvar</b> lá embaixo.</div>
+
+          <fieldset>
+            <legend>1. O básico</legend>
+            <label class="largo">Nome do anúncio <span class="obr">*</span>
+              <input name="titulo" required maxlength="120" placeholder="Ex.: Casa com piscina no Centro">
+            </label>
+            <div class="opcoes" role="radiogroup" aria-label="Venda ou aluguel">
+              <span>É para <span class="obr">*</span></span>
+              <label class="opcao"><input type="radio" name="finalidade" value="Venda" checked> Vender</label>
+              <label class="opcao"><input type="radio" name="finalidade" value="Aluguel"> Alugar</label>
+            </div>
+            <label>Tipo <span class="obr">*</span>
+              <select name="tipo">
+                <option>Casa</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option><option>Rural</option>
+              </select>
+            </label>
+            <label>Preço (R$) <span class="obr">*</span>
+              <input name="preco" inputmode="numeric" required placeholder="Ex.: 450.000">
+              <small>Se for aluguel, coloque o valor por mês.</small>
+            </label>
+            <div class="opcoes" role="radiogroup" aria-label="Aceita financiamento" id="campo-financiamento">
+              <span>Aceita financiamento? <span class="obr">*</span></span>
+              <label class="opcao"><input type="radio" name="aceita_financiamento" value="sim"> Sim</label>
+              <label class="opcao"><input type="radio" name="aceita_financiamento" value="nao"> Não, só à vista</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>2. Onde fica</legend>
+            <label>Cidade <span class="obr">*</span>
+              <select name="cidade_lista" id="cidade-lista"></select>
+            </label>
+            <label id="campo-outra-cidade" hidden>Qual cidade? <span class="obr">*</span>
+              <input name="outra_cidade" placeholder="Ex.: Ladário">
+            </label>
+            <label>Bairro <span class="obr">*</span>
+              <input name="bairro" list="bairros" required autocomplete="off" placeholder="Comece a digitar, ex.: Dom Bosco">
+              <datalist id="bairros"></datalist>
+              <small id="dica-bairro">Digite as primeiras letras e escolha na lista.</small>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>3. Como é o imóvel</legend>
+            <div class="numeros-form">
+              <label>Quartos <input name="quartos" type="number" min="0" max="50" value="0" inputmode="numeric"></label>
+              <label>Banheiros <input name="banheiros" type="number" min="0" max="50" value="0" inputmode="numeric"></label>
+              <label>Vagas de carro <input name="vagas" type="number" min="0" max="50" value="0" inputmode="numeric"></label>
+              <label>Tamanho (m²) <input name="area" inputmode="decimal" placeholder="Ex.: 120"></label>
+            </div>
+            <label class="largo">Descrição
+              <textarea name="descricao" rows="5" maxlength="3000" placeholder="Conte o que o imóvel tem de bom: reformado, perto de escola, quintal grande..."></textarea>
+            </label>
+            <div class="numeros-form">
+              <label>Condomínio por mês (R$) <input name="condominio" inputmode="numeric" placeholder="Se tiver"></label>
+              <label>IPTU (R$) <input name="iptu" inputmode="numeric" placeholder="Se souber"></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>4. Fotos e vídeo</legend>
+            <label class="soltar" id="soltar">
+              <input type="file" id="arquivos-fotos" accept="image/*" multiple>
+              <i data-i="camera" class="soltar-icone"></i>
+              <b>Toque aqui para escolher as fotos</b>
+              <small>Pode escolher várias de uma vez. A primeira foto é a capa do anúncio.</small>
+            </label>
+            <div id="fotos" class="fotos"></div>
+
+            <label class="largo">Vídeo (opcional)
+              <input type="file" id="arquivo-video" accept="video/mp4,video/quicktime,video/webm">
+              <small>Vídeo de até 50 MB. Se for maior, coloque no YouTube e cole o link abaixo.</small>
+            </label>
+            <label class="largo">ou link do YouTube
+              <input name="video_url" type="url" placeholder="https://youtube.com/...">
+            </label>
+            <div id="video-atual" class="video-atual" hidden></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>5. Antes de publicar</legend>
+            <label class="check"><input type="checkbox" name="destaque"> <i data-i="estrela"></i> Mostrar este imóvel primeiro no site</label>
+            <label class="check obrigatorio"><input type="checkbox" name="autorizacao_proprietario" required> <i data-i="autorizacao"></i> O dono do imóvel me autorizou <b>por escrito</b> a anunciar <span class="obr">*</span>
+              <small>A lei do corretor exige essa autorização. Sem ela o imóvel não aparece no site.</small>
+            </label>
+          </fieldset>
+
+          <div class="acoes-form">
+            <button class="btn btn-forte btn-grande" type="submit" id="salvar"><i data-i="salvar"></i> Salvar e publicar</button>
+            <button class="btn btn-suave btn-grande" type="button" id="cancelar">Cancelar</button>
+          </div>
+          <p class="msg" id="msg-imovel" role="alert"></p>
+        </form>
+      </section>
+
+      <!-- Meu dinheiro -->
+      <section data-painel="dinheiro" hidden>
+        <div class="dica"><i data-i="dica"></i> Anote aqui cada negócio fechado. O painel soma suas comissões sozinho e mostra o que já entrou e o que falta receber.</div>
+        <div class="resumo">
+          <div class="resumo-card verde"><span>Já recebi em <span class="ano"></span></span><strong id="r-recebido">R$ 0</strong></div>
+          <div class="resumo-card laranja"><span>Falta receber</span><strong id="r-areceber">R$ 0</strong></div>
+          <div class="resumo-card azul"><span>Negócios fechados em <span class="ano"></span></span><strong id="r-qtd">0</strong></div>
+        </div>
+
+        <form id="form-negocio" class="form-negocio">
+          <h2>Registrar negócio fechado</h2>
+          <div class="numeros-form">
+            <label class="largo">Qual imóvel?
+              <select name="imovel_id" id="neg-imovel"><option value="">Outro (não está no site)</option></select>
+            </label>
+            <label class="largo">Descrição <span class="obr">*</span>
+              <input name="descricao" required maxlength="160" placeholder="Ex.: Venda casa Rua X para João">
+            </label>
+            <label>Foi <select name="tipo"><option>Venda</option><option>Aluguel</option><option>Outro</option></select></label>
+            <label>Valor do negócio (R$) <input name="valor_negocio" inputmode="numeric" placeholder="Ex.: 450.000"></label>
+            <label>Minha comissão (%) <input name="comissao_pct" inputmode="decimal" value="6"></label>
+            <label>Comissão em R$ <span class="obr">*</span> <input name="comissao_valor" inputmode="numeric" required placeholder="Calculada sozinha"></label>
+            <label>Data <input name="data" type="date" required></label>
+          </div>
+          <label class="check"><input type="checkbox" name="recebido"> <i data-i="ok"></i> Já recebi essa comissão</label>
+          <label class="check" id="tirar-do-site" hidden><input type="checkbox" name="tirar" checked> <i data-i="etiqueta"></i> Marcar o imóvel como vendido/alugado (sai do site)</label>
+          <button class="btn btn-forte btn-grande" type="submit"><i data-i="salvar"></i> Salvar negócio</button>
+          <p class="msg" id="msg-negocio" role="alert"></p>
+        </form>
+
+        <h2>Por mês em <span class="ano"></span></h2>
+        <div id="meses" class="meses"></div>
+
+        <h2>Todos os negócios</h2>
+        <div id="lista-negocios" class="lista-negocios"></div>
+      </section>
+    </main>
+  </section>
+
+  <div id="aviso" class="aviso" role="status" hidden></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@29.0.0/dist/iife/sdk.js"></script>
+  <script src="dados.js?v=4"></script>
+  <script src="icones.js?v=5"></script>
+  <script src="admin.js?v=5"></script>
+</body>
+</html>

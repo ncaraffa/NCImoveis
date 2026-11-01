@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Imóvel | NCImóveis</title>
+  <link rel="icon" type="image/png" href="icone.png">
+  <link rel="apple-touch-icon" href="icone.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+  <header class="topo">
+    <div class="container topo-inner">
+      <a href="index.html" class="logo"><img src="logo.png" alt="Nicola Caraffa, Corretor de Imóveis, CRECI 16968" width="560" height="269"></a>
+      <a class="btn btn-suave voltar-topo" href="index.html#imoveis"><i data-i="voltar"></i> Imóveis</a>
+    </div>
+  </header>
+
+  <main class="container pagina-imovel">
+    <p id="carregando" class="vazio">Carregando imóvel...</p>
+
+    <div id="imovel" hidden>
+      <section class="galeria-grande" aria-label="Fotos do imóvel">
+        <div class="foto-principal">
+          <img id="foto-principal" alt="">
+          <button class="seta anterior" id="anterior" aria-label="Foto anterior"><i data-i="voltar"></i></button>
+          <button class="seta proxima" id="proxima" aria-label="Próxima foto"><i data-i="voltar"></i></button>
+          <span class="contador" id="contador"></span>
+        </div>
+        <div class="miniaturas" id="miniaturas"></div>
+      </section>
+
+      <div class="imovel-grade">
+        <div class="imovel-texto">
+          <span class="rotulo" id="rotulo"></span>
+          <h1 id="titulo"></h1>
+          <p class="bairro" id="local"></p>
+          <div id="info"></div>
+          <div id="video"></div>
+          <h2 class="subtitulo" id="titulo-descricao">Sobre o imóvel</h2>
+          <p class="descricao" id="descricao"></p>
+        </div>
+
+        <aside class="imovel-lateral">
+          <div class="preco" id="preco"></div>
+          <p class="encargos" id="encargos"></p>
+          <div id="financia"></div>
+          <a class="btn btn-forte btn-cheio" id="whats" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+          <a class="btn btn-suave btn-cheio" id="ir-simular" href="#simulacao">Simular financiamento</a>
+          <p class="cod" id="codigo"></p>
+        </aside>
+      </div>
+
+      <section id="simulacao" class="simulacao" hidden></section>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <div class="container rodape-colunas">
+      <div class="rodape-marca">
+        <a href="index.html" class="logo logo-claro"><img src="logo-branca.png" alt="Nicola Caraffa, Corretor de Imóveis, CRECI 16968" width="560" height="269"></a>
+        <p>Corretor de imóveis em Corumbá e Campo Grande (MS). Atendimento pessoal para compra, venda e aluguel.</p>
+        <a class="rodape-social" data-c-insta aria-label="Instagram @nicolaimoveis"><i data-i="insta"></i></a>
+      </div>
+      <nav aria-label="Links rápidos">
+        <h3>Links rápidos</h3>
+        <a href="index.html">Início</a>
+        <a href="index.html#imoveis">Imóveis</a>
+        <a href="index.html#como-funciona">Como funciona</a>
+        <a href="index.html#servicos">Serviços</a>
+        <a href="index.html#sobre">Sobre</a>
+        <a href="index.html#contato">Contato</a>
+      </nav>
+      <div>
+        <h3>Cidades atendidas</h3>
+        <p>Corumbá-MS</p>
+        <p>Campo Grande-MS</p>
+        <p>e região</p>
+      </div>
+      <div>
+        <h3>Contato</h3>
+        <a data-c-tel><span data-c="telefone"></span></a>
+        <a data-wa="Olá! Vim pelo site.">WhatsApp</a>
+        <a data-c-mail><span data-c="email"></span></a>
+      </div>
+    </div>
+    <div class="container rodape-base">
+      <span>© <span id="ano"></span> NCImóveis · Este site não usa cookies · <a href="privacidade.html">Política de privacidade</a></span>
+      <span>Feito por <a href="https://caraffa-portfolio.vercel.app" target="_blank" rel="noopener noreferrer">Nicolas Caraffa</a></span>
+    </div>
+  </footer>
+
+  <a class="wa-flutuante" data-wa="Olá! Vim pelo site." aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.6 0l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.2 1.3z"/></svg>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@29.0.0/dist/iife/sdk.js"></script>
+  <script src="dados.js?v=4"></script>
+  <script src="icones.js?v=5"></script>
+  <script src="comum.js?v=6"></script>
+  <script src="simulacao.js?v=4"></script>
+  <script src="imovel.js?v=6"></script>
+</body>
+</html>

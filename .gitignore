@@ -1,0 +1,6 @@
+.vercel
+.env*
+appwrite/node_modules/
+appwrite/.chave
+print-*.png
+.claude/
