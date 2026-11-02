@@ -47,7 +47,7 @@ function infoHtml(i) {
   return `<ul class="info">
     <li>${plural(i.quartos, "quarto", "quartos")}</li>
     <li>${plural(i.banheiros, "banheiro", "banheiros")}</li>
-    <li>${plural(i.vagas, "vaga", "vagas")}</li>
+    ${i.vagas ? `<li>${plural(i.vagas, "vaga de garagem", "vagas de garagem")}</li>` : ""}
     ${i.area ? `<li>${esc(i.area)} m²</li>` : ""}
   </ul>`;
 }
