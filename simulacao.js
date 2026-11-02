@@ -106,9 +106,7 @@ function montarSimulacao(i) {
         <div><span>Juros usados</span><strong>${r.t.anual.toLocaleString("pt-BR")}% ao ano</strong><small>${r.t.nome}</small></div>
       </div>` : `<p>Com essa entrada você paga o imóvel à vista, sem financiamento.</p>`}
       ${r.falta > 0 ? `<p class="sim-alerta">O banco costuma financiar até ${Math.round(FINANCIAMENTO.cota[d.sistema] * 100)}% do imóvel no ${d.sistema}. Para fechar a conta, faltariam mais ${reais(r.falta)} de entrada.</p>` : ""}
-      ${r.financiado ? (cabe
-        ? `<p class="sim-ok">${ic("ok")} A parcela cabe nos 30% da sua renda (até ${reais(r.limiteParcela)}), que é o que o banco costuma aceitar.</p>`
-        : `<p class="sim-alerta">${ic("alerta")} A parcela passa de 30% da sua renda (até ${reais(r.limiteParcela)}). Dá para tentar mais entrada, o outro tipo de parcela ou somar a renda de outra pessoa.</p>`) : ""}
+      ${r.financiado && cabe ? `<p class="sim-ok">${ic("ok")} A parcela cabe nos 30% da sua renda (até ${reais(r.limiteParcela)}), que é o que o banco costuma aceitar.</p>` : ""}
       ${r.meses < d.anos * 12 ? `<p class="sim-nota">Pela idade, o prazo máximo fica em ${anosReais.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} anos.</p>` : ""}
       ${r.t.mcmv && d.renda <= 5000 ? `<p class="sim-nota">Com essa renda você pode ter <b>subsídio do Minha Casa Minha Vida</b>, o que baixa ainda mais a conta. O Nicola confere para você.</p>` : ""}
       <p class="sim-nota">A parcela real ainda tem seguros obrigatórios e taxas do banco.</p>

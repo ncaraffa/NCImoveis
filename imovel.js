@@ -5,7 +5,7 @@ let atual = 0;
 
 function mostrarFoto(n) {
   atual = (n + fotos.length) % fotos.length;
-  $("#foto-principal").src = fotos[atual];
+  $("#foto-principal").src = $("#foto-fundo").src = fotos[atual];
   $("#contador").textContent = `${atual + 1} / ${fotos.length}`;
   document.querySelectorAll(".miniaturas button").forEach((b, k) => b.classList.toggle("ativa", k === atual));
 }

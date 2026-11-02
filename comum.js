@@ -1,6 +1,6 @@
 // Funções usadas no site público (página inicial e página do imóvel).
 const waLink = (msg) => `https://wa.me/${CORRETOR.whatsapp}?text=${encodeURIComponent(msg)}`;
-const reais = (n) => Number(n).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+const reais = (n) => Number(n).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 // Tira acentos para a busca achar "sao paulo" em "São Paulo".
 const norm = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();

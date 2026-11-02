@@ -42,7 +42,7 @@ function render() {
       return `
       <article class="card">
         <a class="card-foto" href="imovel.html?id=${encodeURIComponent(i.id)}" aria-label="Ver detalhes de ${esc(i.titulo)}">
-          ${capa ? `<img src="${esc(capa)}" alt="" loading="lazy">` : `<span class="sem-foto">${ic("casa")}</span>`}
+          ${capa ? `<img class="foto-fundo" src="${esc(capa)}" alt="" aria-hidden="true" loading="lazy"><img src="${esc(capa)}" alt="" loading="lazy">` : `<span class="sem-foto">${ic("casa")}</span>`}
           <span class="selo ${i.finalidade === "Venda" ? "venda" : "aluguel"}">${esc(i.finalidade)}</span>
           ${i.status === "reservado" ? '<span class="selo reservado">Reservado</span>' : ""}
           ${i.fotos?.length > 1 || i.video_url ? `<span class="midia">${ic("camera")} ${i.fotos.length}${i.video_url ? ` · ${ic("video")} vídeo` : ""}</span>` : ""}

@@ -125,7 +125,7 @@ h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: var(--azul-
 .pagina-imovel { padding-block: 2rem 5rem; }
 .galeria-grande { margin-bottom: 2rem; }
 .foto-principal { position: relative; border-radius: var(--raio); overflow: hidden; background: var(--fundo-2); }
-.foto-principal img { width: 100%; aspect-ratio: 16 / 9; max-height: min(70vh, 620px); object-fit: cover; }
+.foto-principal img { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; max-height: min(70vh, 620px); object-fit: contain; }
 .seta { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.92); color: var(--azul-escuro); cursor: pointer; display: grid; place-items: center; box-shadow: var(--sombra); font-size: 1.2rem; }
 .seta.anterior { left: 14px; }
 .seta.proxima { right: 14px; }
@@ -145,7 +145,10 @@ h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: var(--azul-
 .card h3 a { text-decoration: none; }
 .card-foto { cursor: pointer; }
 .descricao { white-space: pre-line; color: var(--texto); }
-.card-foto img { width: 100%; height: 100%; object-fit: cover; }
+.card-foto { overflow: hidden; }
+.card-foto img { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
+/* Foto em pé ou deitada aparece inteira; a cópia desfocada preenche o resto do quadro */
+.foto-principal img.foto-fundo, .card-foto img.foto-fundo { position: absolute; inset: 0; height: 100%; max-height: none; object-fit: cover; filter: blur(24px) brightness(0.8); transform: scale(1.15); }
 .selo { position: absolute; top: 14px; left: 14px; padding: 0.3em 0.9em; border-radius: 999px; font-size: 0.8rem; font-weight: 700; color: #fff; }
 .selo.venda { background: var(--azul); }
 .selo.aluguel { background: var(--verde); }
@@ -304,3 +307,5 @@ h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: var(--azul-
 .logo img { height: 70px; width: auto; display: block; }
 .logo-claro img { height: 86px; }
 @media (max-width: 600px) { .logo img { height: 50px; } }
+/* No celular as fotos em pé ganham um quadro mais alto */
+@media (max-width: 700px) { .foto-principal img { aspect-ratio: 4 / 5; } }
